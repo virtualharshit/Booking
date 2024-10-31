@@ -1,17 +1,23 @@
 let activeTabId = "categories";
 
-// Function to check screen width and display the correct tab on load
+// Function to initialize the default tab based on screen width
 function initializeTabBasedOnWidth() {
   if (window.innerWidth <= 768) {
     activeTabId = "categories";
   } else {
     activeTabId = "team";
   }
-  switchTab(activeTabId);
+  switchTab(activeTabId, null, true);
 }
 
 // Function to switch between tabs
-function switchTab(tabId, button = null) {
+function switchTab(tabId, button = null, isInitializing = false) {
+  // Check screen width each time to reset default tab if needed
+  if (!isInitializing && activeTabId === tabId) {
+    initializeTabBasedOnWidth();
+    return;
+  }
+
   // Hide all tabs
   document.querySelectorAll(".tab-content").forEach(function (tab) {
     tab.style.display = "none";
@@ -22,7 +28,7 @@ function switchTab(tabId, button = null) {
     btn.classList.remove("btnactive");
   });
 
-  // Activate the clicked tab
+  // Show the clicked tab
   document.getElementById(tabId).style.display = "block";
   if (button) button.classList.add("btnactive");
 
@@ -32,9 +38,6 @@ function switchTab(tabId, button = null) {
 
 // Run initialization on page load
 window.onload = initializeTabBasedOnWidth;
-
-// Re-run initialization if window is resized
-window.onresize = initializeTabBasedOnWidth;
 
 // Function to change the header image and content
 function changeHeader(imageSrc, name, rating, ratingnum, description, header) {
