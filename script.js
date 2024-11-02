@@ -121,7 +121,7 @@ function closeAllModals() {
 document.addEventListener("DOMContentLoaded", () => {
   const firstHeader = document.querySelector(".rounded-option");
   changeHeader(
-    "header.jpg",
+    "images/header.jpg",
     "Frank's Barbershop",
     "★★★☆☆",
     "(10)",
